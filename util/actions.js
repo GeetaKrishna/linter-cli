@@ -19,14 +19,20 @@ const getFiles = async () => {
   // Get all the files from the directory recursively
   const results = await getFilesRecrusive(process.cwd(), []);
 
-  let files = [];
+  // Check if there are any resulting files for linting
+  if (results.length !== 0) {
+    let files = [];
 
-  //Return array of file paths
-  for (file of results) {
-    files.push(`${file.path}/${file.name}`);
+    //Return array of file paths
+    for (file of results) {
+      files.push(`${file.path}/${file.name}`);
+    }
+
+    return files;
+  } else {
+    // Return empty array if there are no files to lint
+    return [];
   }
-
-  return files;
 };
 
 const getFilesRecrusive = async (path, files) => {
@@ -87,3 +93,4 @@ const getFilesRecrusive = async (path, files) => {
 };
 
 module.exports.getFiles = getFiles;
+module.exports.checkEslintConfig = checkEslintConfig;

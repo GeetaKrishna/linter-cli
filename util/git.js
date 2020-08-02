@@ -47,4 +47,43 @@ const getStaged = async () => {
   }
 };
 
+const getModified = async () => {
+  try {
+    // Get latest status from Git
+    const status = await git.status();
+
+    let files = [];
+
+    for (file of status.files) {
+      if (file.index === file.working_dir) {
+        files.push(file.path);
+      }
+    }
+
+    return files;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const stageModifiedFiles = async (files) => {
+  try {
+    // Get staged files from git
+    const stagedFiles = await getModified();
+
+    for (file of stagedFiles) {
+      // Check if file was originally staged in this commit
+      if (files.includes(file)) {
+        // Stage the file again to be a part of this commit
+        git.add(file);
+      }
+    }
+
+    // console.log(stagedFiles);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports.getStaged = getStaged;
+module.exports.stageModifiedFiles = stageModifiedFiles;
