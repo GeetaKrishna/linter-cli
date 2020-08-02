@@ -5,6 +5,7 @@ const program = require("commander");
 const chalk = require("chalk");
 const git = require("./util/git");
 const actions = require("./util/actions");
+const linter = require("./util/linter");
 
 const description = `${chalk.blueBright(
   "Welcome to @miracle/linter"
@@ -22,10 +23,14 @@ program
 program.on("option:staged", () => {
   (async () => {
     try {
-      const status = await git.getStatus;
-      console.log(status);
+      // Get files that need to be linted
+      const files = await git.getStaged();
+      const result = await linter(files);
+
+      // Run eslint on all the files
+      console.log(result);
     } catch (error) {
-      console.log("exit process");
+      console.log(error.message);
       process.exitCode = 2;
     }
   })();
@@ -33,8 +38,18 @@ program.on("option:staged", () => {
 
 // Handle --all option
 program.on("option:all", () => {
-  console.log("exit process");
-  process.exitCode = 2;
+  (async () => {
+    try {
+      // Get all files in the directory
+      const files = await actions.getFiles();
+      const result = await linter(files);
+
+      // Run eslint on all the files
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  })();
 });
 
 program.parse(process.argv);
