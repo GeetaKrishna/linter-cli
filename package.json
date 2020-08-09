@@ -1,6 +1,6 @@
 {
-  "name": "@miracle/linter",
-  "version": "0.0.1",
+  "name": "@miraclesoft/linter",
+  "version": "0.0.2",
   "description": "Linter for Java Script Projects ",
   "main": "src/app.js",
   "bin": "./src/app.js",

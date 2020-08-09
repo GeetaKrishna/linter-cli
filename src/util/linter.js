@@ -50,12 +50,7 @@ const lintFilesAndCreateReport = async (files, fix) => {
   await ESLint.outputFixes(results);
 
   // Format the eslint output
-  const formatter = await eslint.loadFormatter(
-    path.join(
-      __dirname,
-      '../../node_modules/@miraclesoft/eslint-formatter-html/src/app.js'
-    )
-  );
+  const formatter = await eslint.loadFormatter('@miraclesoft/html');
 
   // eslint-disable-next-line no-unused-vars
   const resultText = formatter.format(results);
