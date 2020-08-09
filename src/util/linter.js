@@ -1,15 +1,16 @@
-const { ESLint } = require("eslint");
-const ora = require("ora");
-const actions = require("./actions");
-const { promises: fs } = require("fs");
+const path = require('path');
+const { ESLint } = require('eslint');
+const ora = require('ora');
+const actions = require('./actions');
+const { promises: fs } = require('fs');
 
-const lintFiles = async (files, fix) => {
+const runLinter = async (files, fix) => {
   try {
     // By default fix=false for linter
     let eslintOptions = { fix: false };
 
     // Check if fix option is needed
-    if (fix == "fix") {
+    if (fix == 'fix') {
       eslintOptions.fix = true;
     }
 
@@ -49,17 +50,19 @@ const lintFilesAndCreateReport = async (files, fix) => {
     await actions.checkEslintConfig();
 
     // Get eslint results on files
-    const { results, eslint } = await lintFiles(files, fix);
+    const { results, eslint } = await runLinter(files, fix);
 
     // Auto-Fix files where possible
     await ESLint.outputFixes(results);
 
     // Format the eslint output
-    const formatter = await eslint.loadFormatter("stylish");
+    const formatter = await eslint.loadFormatter(
+      path.join(
+        __dirname,
+        '../../node_modules/@miraclesoft/eslint-formatter-html/src/app.js'
+      )
+    );
     const resultText = formatter.format(results);
-
-    // Check result and define status
-    console.log(results);
 
     const status = await checkLintStatus(results);
 

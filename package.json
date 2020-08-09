@@ -1,20 +1,41 @@
 {
   "name": "@miracle/linter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Linter for Java Script Projects ",
-  "main": "app.js",
-  "bin": "./app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "src/app.js",
+  "bin": "./src/app.js",
   "author": "Chanakya Lokam",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
+    "@miraclesoft/eslint-formatter-html": "^0.1.4",
     "chalk": "^4.1.0",
     "commander": "^6.0.0",
     "eslint": "^7.6.0",
-    "minimist": "^1.2.5",
+    "eslint-formatter-html-extended": "^1.0.2",
     "ora": "^4.0.5",
     "simple-git": "^2.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miracleapps/linter-cli.git"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-formatter"
+  ],
+  "bugs": {
+    "url": "https://github.com/miracleapps/linter-cli.git/issues"
+  },
+  "homepage": "https://github.com/miracleapps/linter-cli.git#readme",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -10,6 +10,10 @@ const linter = require("./util/linter");
 
 const spinner = ora();
 
+const lintError = new Error(
+  "Check errors in the /reports/lint-report.html file and fix before next commit."
+);
+
 const description = `${chalk.blueBright(
   "Welcome to @miracle/linter"
 )} : CLI tool for running eslint, prettier and airbnb based linter for Node JS projects`;
@@ -25,7 +29,7 @@ program
       if (program.staged || program.all) {
         //Do Nothing
       } else {
-        const errorMessage = `Invalid usage of command, check ${chalk.yellow(
+        const errorMessage = `Invali usage of command, check ${chalk.yellow(
           "--help"
         )} for assistance.`;
         throw new Error(errorMessage);
@@ -71,9 +75,7 @@ program.on("option:staged", () => {
 
         // Check if eslint status is false - false means errors are there in linting
         if (!status) {
-          throw new Error(
-            "Check errors in the /reports/lint.html file and fix before next commit."
-          );
+          throw lintError;
         }
 
         // Stop spinner
@@ -115,15 +117,11 @@ program.on("option:all", () => {
 
         // Check if eslint status is false - false means errors are there in linting
         if (!status) {
-          throw new Error(
-            "Check errors in the /reports/lint.html file and fix before next commit."
-          );
+          throw lintError;
         }
 
         // Stop spinner
         spinner.stop();
-
-        console.log(result);
       }
     } catch (error) {
       // Stop spinner
