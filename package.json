@@ -24,7 +24,7 @@
     "eslint-formatter"
   ],
   "bugs": {
-    "url": "https://github.com/miracleapps/linter-cli.git/issues"
+    "url": "https://github.com/miracleapps/linter-cli/issues"
   },
   "homepage": "https://github.com/miracleapps/linter-cli.git#readme",
   "devDependencies": {
