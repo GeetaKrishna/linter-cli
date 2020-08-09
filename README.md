@@ -1,5 +1,7 @@
 # @miraclesoft/linter
 
+![version](https://img.shields.io/badge/dynamic/json?color=orange&label=version&prefix=%20&query=version&suffix=%20&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmiracleapps%2Flinter-cli%2Fmaster%2Fpackage.json) ![license](https://img.shields.io/badge/dynamic/json?color=blue&label=license&query=license&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmiracleapps%2Flinter-cli%2Fmaster%2Fpackage.json)
+
 ESLint based Command Line Utility for usage within JavaScript based projects
 
 **_Note_**_: This is a beta version of this formatter created for internal use by Miracle Apps, Miracle Software Systems, Inc.'s internal app development wing. Please submit any issues (or) feedback [here](https://github.com/miracleapps/linter-cli/issues)._
