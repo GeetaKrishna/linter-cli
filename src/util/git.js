@@ -1,5 +1,6 @@
-const simpleGit = require("simple-git");
-const { promises: fs } = require("fs");
+/* eslint-disable no-restricted-syntax */
+const simpleGit = require('simple-git');
+const { promises: fs } = require('fs');
 
 // Initialize git commands
 const git = simpleGit();
@@ -9,79 +10,65 @@ const checkGit = async () => {
   const files = await fs.readdir(process.cwd());
 
   // Check if .git file is present
-  for (file of files) {
-    if (file.includes(".git")) {
+  for (const file of files) {
+    if (file.includes('.git')) {
       return true;
     }
   }
 
   throw new Error(
-    "No git repository found. Run linter in base directory of repository."
+    'No git repository found. Run linter in base directory of repository.'
   );
 };
 
 const getStaged = async () => {
-  try {
-    // Check git repository
-    await checkGit();
+  // Check git repository
+  await checkGit();
 
-    // Get latest status from Git
-    const status = await git.status();
+  // Get latest status from Git
+  const status = await git.status();
 
-    // Get the created and staged files from status
-    let files = status.created.concat(status.staged);
+  // Get the created and staged files from status
+  let files = status.created.concat(status.staged);
 
-    // Check if any files are present
-    if (files.length == 0) {
-      throw new Error("No files available for staging");
-    }
-
-    // Filter the .js files
-    files = files.filter(
-      (file) => file.includes(".js") && !file.includes(".json")
-    );
-
-    return files;
-  } catch (error) {
-    throw error;
+  // Check if any files are present
+  if (files.length === 0) {
+    throw new Error('No files available for staging');
   }
+
+  // Filter the .js files
+  files = files.filter(
+    (file) => file.includes('.js') && !file.includes('.json')
+  );
+
+  return files;
 };
 
 const getModified = async () => {
-  try {
-    // Get latest status from Git
-    const status = await git.status();
+  // Get latest status from Git
+  const status = await git.status();
 
-    let files = [];
+  const files = [];
 
-    for (file of status.files) {
-      if (file.index === file.working_dir) {
-        files.push(file.path);
-      }
+  for (const file of status.files) {
+    if (file.index === file.working_dir) {
+      files.push(file.path);
     }
-
-    return files;
-  } catch (error) {
-    throw error;
   }
+
+  return files;
 };
 
 const stageModifiedFiles = async (files) => {
-  try {
-    // Get staged files from git
-    const stagedFiles = await getModified();
+  // Get staged files from git
+  const stagedFiles = await getModified();
 
-    for (file of stagedFiles) {
-      // Check if file was originally staged in this commit
-      if (files.includes(file)) {
-        // Stage the file again to be a part of this commit
-        git.add(file);
-      }
+  for (const file of stagedFiles) {
+    // Check if file was originally staged in this commit
+    if (files.includes(file)) {
+      // Stage the file again to be a part of this commit
+      git.add(file);
     }
-
-    // console.log(stagedFiles);
-  } catch (error) {
-    throw error;
   }
 };
 
