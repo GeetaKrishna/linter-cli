@@ -16,7 +16,7 @@ npm install @miraclesoft/linter --save-dev
 yarn install @miraclesoft/linter --save-dev
 ```
 
-You can then use the tool from the command line,
+You can then use the tool from the command line. Alternatively you can install the linter globally, but it is not advised at this point of time.
 
 **_Note_** _: The linter cli will look for a eslint config file and if running with --staged option will look for a git repository to be initialized_
 
@@ -27,26 +27,24 @@ Running with --staged will only run the linter on .js files that are staged for 
 ```sh
 ./node_modules/.bin/linter --staged
 
-**_Note_** _: When run with --staged all auto-fixed files will be re-staged by git as well_
+When run with --staged all auto-fixed files will be re-staged by git as well
 
 ./node_modules/.bin/linter --staged fix
 
-**_Note_** _: Adding the fix option in the command will use eslint with auto-fix mode_
+Adding the fix option in the command will use eslint with auto-fix mode
 ```
 
 ### Run with --all
 
-Running with --all will run the linter all .js files in the project.
+Running with --all will run the linter on all .js files in the project.
 
 ```sh
 ./node_modules/.bin/linter --all
 
 ./node_modules/.bin/linter --all fix
 
-**_Note_** _: Adding the fix option in the command will use eslint with auto-fix mode_
+Adding the fix option in the command will use eslint with auto-fix mode
 ```
-
-When run, the formatter will output a HTML report in **/reports/lint-report.html**
 
 ### Usage with Husky
 
@@ -59,6 +57,10 @@ If you are using Husky in your projects for pre-commit git hooks, then you can u
     }
   }
 ```
+
+## Lint Report
+
+When run, the formatter will output a HTML report in **/reports/lint-report.html**
 
 Here is a preview for the [HTML Report](http://htmlpreview.github.io/?https://github.com/miracleapps/eslint-formatter-html/blob/master/assets/lint-report.html)
 
